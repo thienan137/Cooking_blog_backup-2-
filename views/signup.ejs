@@ -1,0 +1,77 @@
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Cooking Blog - Sign-up</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead">Share your amazing recipies with thousands of web developers accross the world. Signup to get started.</p>
+    </div>
+</div>
+
+
+<div class="container mr-5">
+  <form class="cform">
+    <!-- <div class="form-group mt-3">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter name">
+    </div> -->
+    <div class="form-group mt-3">
+      <label for="email">Email address:</label>
+      <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required />
+      <div class="email error"></div>
+    </div>
+    <!-- <div class="form-group mt-3">
+      <label for="country">Country:</label>
+      <input type="text" class="form-control" id="country" placeholder="Enter country">
+    </div> -->
+    <!-- <div class="form-group mt-3">
+      <label for="phone">Phone number:</label>
+      <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
+    </div> -->
+    <div class="form-group mt-3">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control"  id="password" placeholder="Enter password" required />
+      <div class="password error"></div>
+    </div>
+    <button class="btn btn-primary mt-3">Sign Up</button>
+  </form>
+
+  
+</div>
+
+<script>
+    const form = document.querySelector('.cform');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+
+    form.addEventListener('submit',async (e) =>{
+      e.preventDefault();
+  
+      //reset errors
+      emailError.textContent = '';
+      passwordError.textContent = '';
+
+      //get the values
+      const email = form.email.value;
+      const password = form.password.value;
+  
+      try{
+        const res = await fetch('/signup',{
+          method: 'POST',
+          body: JSON.stringify({email, password}),
+          headers: {'Content-Type': 'application/json'}
+        });
+        const data = await res.json();
+        console.log(data);
+        if(data.errors){
+          emailError.textContent = data.errors.email;
+          passwordError.textContent = data.errors.password;
+        }
+        if(data.user){
+          location.assign('/login');
+        }
+      }
+      catch(err){
+        console.log(err);
+      }
+    })
+</script>
+
+  
