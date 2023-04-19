@@ -21,28 +21,30 @@
   
   <div class="col-8">
 
-    <form action="#" enctype="multipart/form-data" method="POST">
+    <form action="#" class="form"  enctype="multipart/form-data" method="POST">
     
       <div class="row g-3">
 
-        <div class="col-12">
+        <!-- <div class="col-12">
           <label for="name" class="form-label">Name</label>
           <input type="text" name="name" id="name" class="form-control" required>
-        </div>
+        </div> -->
 
         <div class="col-12">
           <label for="email" class="form-label">Email</label>
           <input type="email" name="email" id="email" class="form-control" required>
+          <div class="email error"></div>
         </div>
 
-        <div class="col-12">
+        <!-- <div class="col-12">
           <label for="country" class="form-label">Country</label>
           <input type="text" name="country" id="country" class="form-control" required>
-        </div>
+        </div> -->
 
         <div class="col-12">
           <label for="password" class="form-label">Password</label>
           <input type="password" name="password" id="password" class="form-control" required>
+          <div class="password error"></div>
         </div>
 
           
@@ -58,7 +60,7 @@
 </div>
 
 <script>
-    const form = document.querySelector('.cform');
+    const form = document.querySelector('.form');
     const emailError = document.querySelector('.email.error');
     const passwordError = document.querySelector('.password.error');
 
