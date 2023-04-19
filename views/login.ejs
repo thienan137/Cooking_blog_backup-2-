@@ -1,4 +1,4 @@
-<div class="px-4 py-5 my-5 text-center">
+<!-- <div class="px-4 py-5 my-5 text-center">
     <h1 class="display-5 fw-bold">Cooking Blog - Login</h1>
     <div class="col-lg-6 mx-auto">
       <p class="lead">Share your amazing recipies with thousands of web developers accross the world. Login to get started.</p>
@@ -25,6 +25,54 @@
           </div>
         </form>
       </div>
+    </div>
+  </div> -->
+  <div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Login</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead">Share your amazing recipies with thousands of web developers accross the world. Login to get started.</p>
+    </div>
+  </div>
+  
+  <div class="row justify-content-center">
+
+    <% if(infoSubmitObj != '') { %>
+      <div class="col-8 alert alert-success" role="alert">
+        <%= infoSubmitObj %>
+      </div>
+    <% } %>
+  
+    <% if(infoErrorsObj != '') { %>
+      <div class="col-8 alert alert-danger" role="alert">
+        <%= infoErrorsObj[0].message %>
+      </div>
+    <% } %>  
+    
+    <div class="col-8">
+  
+      <form action="#" enctype="multipart/form-data" method="POST">
+      
+        <div class="row g-3">
+  
+          <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+          </div>
+  
+          <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="name" id="name" class="form-control" required>
+          </div>
+            
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/signup" class="btn btn-secondary">Sign-up</a>
+          </div>
+  
+        </div>
+      
+      </form>
+  
     </div>
   </div>
 

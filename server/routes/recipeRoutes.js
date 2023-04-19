@@ -19,6 +19,14 @@ router.post('/login', recipeController.login_post);
 router.get('/signup', recipeController.signup);
 router.post('/signup', recipeController.signup_post);
 router.post('/submit-recipe', recipeController.submitRecipeOnPost);
+router.get('/my-recipes', recipeController.myRecipes);
+router.get('/user-recipes/:email', recipeController.exploreUserRecipes);
+
+
+
+router.get('/edit-my-recipes/:id', recipeController.editMyRecipes);
+router.post('/update-recipes/:id', recipeController.updateRecipe);
+router.post('/delete-recipes/:id', recipeController.deleteRecipeOnPost);
 
 
 module.exports = router;

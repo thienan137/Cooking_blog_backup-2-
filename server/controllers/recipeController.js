@@ -214,7 +214,10 @@ const createToken = (id) =>{
  * Login page
 */
 exports.login = async(req, res) => {
-  res.render('login', { title: 'Cooking Blog - Login'  } );
+  const infoErrorsObj = req.flash('infoErrors');
+  const infoSubmitObj = req.flash('infoSubmit');
+
+  res.render('login', { title: 'Cooking Blog - Login', infoErrorsObj, infoSubmitObj } );
 }
 
 exports.login_post = async (req, res) =>{
@@ -233,7 +236,9 @@ exports.login_post = async (req, res) =>{
  * Signup page
 */
 exports.signup = async(req, res) => {
-  res.render('signup', { title: 'Cooking Blog - Signup'  } );
+  const infoErrorsObj = req.flash('infoErrors');
+  const infoSubmitObj = req.flash('infoSubmit');
+  res.render('signup', { title: 'Cooking Blog - Signup', infoErrorsObj, infoSubmitObj  } );
 }
 
 exports.signup_post = async (req, res) =>{
@@ -248,5 +253,124 @@ exports.signup_post = async (req, res) =>{
   catch (err) {
     const errors = handdleErrors(err);
     res.status(400).json({errors});
+  }
+}
+
+/**
+ * GET /my-recipes
+ * My Recipe Page
+*/
+exports.myRecipes = async(req, res) => {
+  try {
+    const limitNumber = 20;
+    const recipe = await Recipe.find({ email: "abcmyrcp@gmail.com" }).limit(limitNumber);
+    res.render('my-recipes', { title: 'Cooking Blog - My Recipes', recipe } );
+  } catch (error) {
+    res.satus(500).send({message: error.message || "Error Occured" });
+  }
+} 
+
+/**
+ * POST /my-recipes
+ * DELETE RECIPE function
+*/
+exports.deleteRecipeOnPost = async(req, res) => {
+  try {
+    let recipeId = req.body.recipeId;
+    const recipe = await Recipe.deleteOne({ _id: recipeId });
+    res.redirect('/my-recipes');
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+}
+
+/**
+ * GET /edit-my-recipes
+ * Edit My Recipe Page
+*/
+exports.editMyRecipes = async(req, res) => {
+  const infoErrorsObj = req.flash('infoErrors');
+  const infoSubmitObj = req.flash('infoSubmit');
+  try {
+    let recipeId = req.params.id;
+    const recipe = await Recipe.findById(recipeId);
+    res.render('edit-my-recipes', { title: 'Cooking Blog - Submit Recipe', infoErrorsObj, infoSubmitObj, recipe} );
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error'); // Handle server error
+  }
+} 
+
+/**
+ * POST /update-my-recipes
+ * Update My Recipe Page
+*/
+
+exports.updateRecipe = async (req, res) => {
+  try {
+    const recipeId = req.params.id; // Get the recipe ID from request parameters
+    const { name, description, ingredients, category, image } = req.body; // Get updated recipe data from request body
+
+    // Split ingredients string by comma and store as array
+    const ingredientsArray = ingredients.split(',').map(ingredient => ingredient.trim());
+
+    if(!req.files || Object.keys(req.files).length === 0){
+      console.log('No Files where uploaded.');
+    } else {
+
+      imageUploadFile = req.files.image;
+      newImageName = Date.now() + imageUploadFile.name;
+
+      uploadPath = require('path').resolve('./') + '/public/uploads/' + newImageName;
+
+      imageUploadFile.mv(uploadPath, function(err){
+        if(err) return res.satus(500).send(err);
+      })
+
+    }
+
+
+    // Update the recipe in the database
+    const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, {
+      name,
+      description,
+      ingredients: ingredientsArray, // Use the updated ingredients array
+      category,
+      image: newImageName
+    }, { new: true });
+
+    // If recipe is not found
+    if (!updatedRecipe) {
+      return res.status(404).json({
+        success: false,
+        message: 'Recipe not found'
+      });
+    }
+    res.redirect('/my-recipes');
+    // return res.status(200).json({
+    //   success: true,
+    //   message: 'Recipe updated successfully',
+    //   recipe: updatedRecipe,
+    // });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error updating recipe',
+      error: err.message
+    });
+  }
+};
+
+/**
+ * GET /user-recipes
+ * User Recipe Page
+*/
+exports.exploreUserRecipes = async(req, res) => {
+  try {
+    let recipeEmail = req.params.email;
+    const recipe = await Recipe.find({ 'email': recipeEmail });
+    res.render('user-recipe', { title: 'Cooking Blog - My Recipes', recipe } );
+  } catch (error) {
+    res.status(500).send({message: error.message || "Error Occurred" });
   }
 }

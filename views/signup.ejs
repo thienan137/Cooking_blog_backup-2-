@@ -1,39 +1,60 @@
 <div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold">Cooking Blog - Sign-up</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead">Share your amazing recipies with thousands of web developers accross the world. Signup to get started.</p>
-    </div>
+  <h1 class="display-5 fw-bold">Sign-up</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead">Share your amazing recipies with thousands of web developers accross the world. Sign-up to get started.</p>
+  </div>
 </div>
 
+<div class="row justify-content-center">
 
-<div class="container mr-5">
-  <form class="cform">
-    <!-- <div class="form-group mt-3">
-      <label for="name">Name:</label>
-      <input type="text" class="form-control" id="name" placeholder="Enter name">
-    </div> -->
-    <div class="form-group mt-3">
-      <label for="email">Email address:</label>
-      <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required />
-      <div class="email error"></div>
+  <% if(infoSubmitObj != '') { %>
+    <div class="col-8 alert alert-success" role="alert">
+      <%= infoSubmitObj %>
     </div>
-    <!-- <div class="form-group mt-3">
-      <label for="country">Country:</label>
-      <input type="text" class="form-control" id="country" placeholder="Enter country">
-    </div> -->
-    <!-- <div class="form-group mt-3">
-      <label for="phone">Phone number:</label>
-      <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
-    </div> -->
-    <div class="form-group mt-3">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control"  id="password" placeholder="Enter password" required />
-      <div class="password error"></div>
-    </div>
-    <button class="btn btn-primary mt-3">Sign Up</button>
-  </form>
+  <% } %>
 
+  <% if(infoErrorsObj != '') { %>
+    <div class="col-8 alert alert-danger" role="alert">
+      <%= infoErrorsObj[0].message %>
+    </div>
+  <% } %>  
   
+  <div class="col-8">
+
+    <form action="#" enctype="multipart/form-data" method="POST">
+    
+      <div class="row g-3">
+
+        <div class="col-12">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" name="name" id="name" class="form-control" required>
+        </div>
+
+        <div class="col-12">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+
+        <div class="col-12">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" name="country" id="country" class="form-control" required>
+        </div>
+
+        <div class="col-12">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+
+          
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Sign-up</button>
+        </div>
+
+      </div>
+    
+    </form>
+
+  </div>
 </div>
 
 <script>
