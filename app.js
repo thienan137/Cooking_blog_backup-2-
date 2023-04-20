@@ -43,7 +43,9 @@ app.set('view engine', 'ejs');
 
 //Routes
 const routes = require("./server/routes/recipeRoutes.js");
+const { checkUser } = require("./server/middleware/authMiddleware.js");
 app.use("/", routes);
+app.get("*", checkUser);
 
 //listen
 app.listen(port, () => console.log(`Listening to port ${port}`));

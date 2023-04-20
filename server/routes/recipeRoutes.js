@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const recipeController = require("../controllers/recipeController");
 
+
 /* 
     app routes
 */
+//router.get("*",recipeController.checkUser)
 router.get("/", recipeController.homepage);
 router.get("/categories", recipeController.exploreCategories);
 router.get('/recipe/:id', recipeController.exploreRecipe );
@@ -18,6 +20,7 @@ router.get('/login', recipeController.login);
 router.post('/login', recipeController.login_post);
 router.get('/signup', recipeController.signup);
 router.post('/signup', recipeController.signup_post);
+router.get('/logout', recipeController.logout);
 router.post('/submit-recipe', recipeController.submitRecipeOnPost);
 router.get('/my-recipes', recipeController.myRecipes);
 router.get('/user-recipes/:email', recipeController.exploreUserRecipes);
