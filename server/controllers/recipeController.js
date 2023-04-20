@@ -261,13 +261,23 @@ exports.signup_post = async (req, res) =>{
  * My Recipe Page
 */
 exports.myRecipes = async(req, res) => {
+  // try {
+  //   const limitNumber = 20;
+  //   const recipe = await Recipe.find({ email: "abcmyrcp@gmail.com" }).limit(limitNumber);
+  //   res.render('my-recipes', { title: 'Cooking Blog - My Recipes', recipe } );
+  // } catch (error) {
+  //   res.satus(500).send({message: error.message || "Error Occured" });
+  // }
+
   try {
+    let userEmail = req.params.email;
     const limitNumber = 20;
-    const recipe = await Recipe.find({ email: "abcmyrcp@gmail.com" }).limit(limitNumber);
-    res.render('my-recipes', { title: 'Cooking Blog - My Recipes', recipe } );
+    const myRecipesEmail = await Recipe.find({ 'email': userEmail }).limit(limitNumber);
+    res.render('my-recipes', { title: 'Cooking Blog - Categoreis', myRecipesEmail } );
   } catch (error) {
     res.satus(500).send({message: error.message || "Error Occured" });
   }
+
 } 
 
 /**

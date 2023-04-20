@@ -19,7 +19,7 @@ router.post('/login', recipeController.login_post);
 router.get('/signup', recipeController.signup);
 router.post('/signup', recipeController.signup_post);
 router.post('/submit-recipe', recipeController.submitRecipeOnPost);
-router.get('/my-recipes', recipeController.myRecipes);
+router.get('/my-recipes/:email', recipeController.myRecipes);
 router.get('/user-recipes/:email', recipeController.exploreUserRecipes);
 
 
