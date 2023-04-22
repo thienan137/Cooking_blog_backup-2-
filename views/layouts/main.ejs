@@ -32,25 +32,41 @@
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 
-          <li class="nav-link px-2 link-secondary">Welcome ></li>
-          <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-          <li><a
-              href="/about"
+          <% if (user) { %>
+            <li class="nav-link px-2 link-secondary">Welcome <%= user.email %></li>
+            <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a
+                href="/about"
+                class="nav-link px-2 link-secondary"
+              >About</a></li>
+            <li><a
+                href="/submit-recipe"
+                class="nav-link px-2 link-secondary"
+              >Submit</a></li>
+      
+            <li><a
+              href="/my-recipes/<%= user.email %>"
               class="nav-link px-2 link-secondary"
-            >About</a></li>
-          <li><a
-              href="/submit-recipe"
-              class="nav-link px-2 link-secondary"
-            >Submit</a></li>
+            >My Recipes </a></li>
   
-          <li><a
-              href="/login"
-              class="nav-link px-2 link-secondary"
-            >Login</a></li>
-          <li><a
-              href="/logout"
-              class="nav-link px-2 link-secondary"
-            >Logout</a></li>  
+          <% } else { %>
+            <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a
+                href="/about"
+                class="nav-link px-2 link-secondary"
+              >About</a></li>
+            <li><a
+                href="/submit-recipe"
+                class="nav-link px-2 link-secondary"
+              >Submit</a></li>
+    
+            <li><a
+                href="/login"
+                class="nav-link px-2 link-secondary"
+              >Login</a></li>
+  
+  
+            <% } %>
         </ul>
  
 
@@ -75,12 +91,19 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <p>&copy; 2023 My Company</p>
+              <p>Made by Tuong - An - Nam - Tam - Phuoc</p>
             </div>
             <div class="col-md-6 text-md-right d-flex justify-content-end">
-              <a href="/" class="text-dark mx-3">Home</a>
-              <a href="/about" class="text-dark mx-3">About Us</a>
-            </div>
+
+              <% if (user) { %>
+                <a href="/" class="text-dark mx-3">Home</a>
+                <a href="/about" class="text-dark mx-3">About Us</a>
+                <a href="/logout" class="text-dark mx-3">Logout</a>        
+              <% } else { %>
+                <a href="/" class="text-dark mx-3">Home</a>
+                <a href="/about" class="text-dark mx-3">About Us</a>
+              <% } %>
+                </div>
           </div>
         </div>
       </footer>
